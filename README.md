@@ -20,6 +20,6 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 
 # Tarefas
 
-* Montar JSON com mapeamento de nome de categoria/filtro e o seu valor para a geração da URL do feed
+* Done Montar JSON com mapeamento de nome de categoria/filtro e o seu valor para a geração da URL do feed
 * Montar o fluxo de interação com a aplicação
 * Selecionar e testar uma biblioteca para o parsing do feed de RSS
