@@ -20,6 +20,13 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 
 # Tarefas
 
-* Done Montar JSON com mapeamento de nome de categoria/filtro e o seu valor para a geração da URL do feed
-* Montar o fluxo de interação com a aplicação
+* Montar JSON com mapeamento de nome de categoria/filtro e o seu valor para a geração da URL do feed
+* **DONE** - Montar o fluxo de interação com a aplicação
+* Montar a interface com o jQuery Mobile
 * Selecionar e testar uma biblioteca para o parsing do feed de RSS
+* Implementar o fetching do feed RSS no Phonegap (RSS -> JSON)
+* Selecionar o mecanismo de storage mais adequado
+* Implementar o salvamento do feed e seus itens no storage
+* Implementar customização de feed
+* Fazer uma prova de conceito de como mostrar a falta de conectividade para o usuário
+
