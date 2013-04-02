@@ -42,3 +42,72 @@ asyncTest( "Serviço de feed do Google está com problema", function() {
         }
     );
 });
+
+module("Evento",{
+    setup: function() {
+        evento = new Event({
+            title: "Um titulo",
+            link: "http://www.example.com",
+            publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+            author: "ICMC",
+            description: "uma descricao",
+            content: "um conteudo em html"
+        });
+    }, teardown: function() {
+    }
+});
+
+test("Criar um novo objeto evento a partir dos dados do feed", function() {
+    equal(evento.get('title'), "Um titulo", "Titulo deve estar correto");
+    equal(evento.get('link'), "http://www.example.com", "Link deve estar correto");
+    equal(evento.get('publishedDate'), "Mon, 01 Apr 2013 08:45:25 -0700", "Publicação deve estar correta");
+    equal(evento.get('author'), "ICMC", "Autor deve estar correto");
+    equal(evento.get('description'), "uma descricao", "Descricao deve estar correto");
+    equal(evento.get('content'), "um conteudo em html", "Conteudo deve estar correto");
+});
+
+test("Data de publicação deve estar disponível como um objeto", function() {
+    equal(evento.publishedDate().getDay(), 1, "Data de publicação como um objeto");
+});
+
+test("Validar um evento com atributos válidos", function() {
+    ok(evento.isValid(), "Evento deve ser válido");
+});
+
+test("Invalidar um evento com atributos inválidos", function() {
+    evento.unset("title");
+    evento.set({link: null});
+    evento.set({publishedDate: "not a date"});
+    ok(!evento.isValid(), "Evento deve alertar que é inválido")
+});
+
+module("Storage",{
+    setup: function() {
+        evento = new Event({
+            title: "Um titulo",
+            link: "http://www.example.com",
+            publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+            author: "ICMC",
+            description: "uma descricao",
+            content: "um conteudo em html"
+        });
+    }, teardown: function() {
+    }
+});
+
+test("Salvar um evento existente", function() {
+    ok(false, "Not Implemented");
+});
+
+test("Carregar um evento existente", function() {
+    ok(false, "Not Implemented");
+});
+
+test("Alterar os atributos de um evento", function() {
+    ok(false, "Not Implemented");
+});
+
+test("Apagar um evento", function() {
+    ok(false, "Not Implemented");
+});
+
