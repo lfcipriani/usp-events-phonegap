@@ -43,9 +43,11 @@ asyncTest( "Serviço de feed do Google está com problema", function() {
     );
 });
 
-module("Evento",{
+//-----------------------------------------------------------------------------
+
+module("Event",{
     setup: function() {
-        evento = new Event({
+        evento = new FeedEvent({
             title: "Um titulo",
             link: "http://www.example.com",
             publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
@@ -81,33 +83,51 @@ test("Invalidar um evento com atributos inválidos", function() {
     ok(!evento.isValid(), "Evento deve alertar que é inválido")
 });
 
-module("Storage",{
+//-----------------------------------------------------------------------------
+
+module("EventList",{
     setup: function() {
-        evento = new Event({
-            title: "Um titulo",
-            link: "http://www.example.com",
-            publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
-            author: "ICMC",
-            description: "uma descricao",
-            content: "um conteudo em html"
-        });
     }, teardown: function() {
+        window.localStorage.clear();
     }
 });
 
-test("Salvar um evento existente", function() {
-    ok(false, "Not Implemented");
+test("Os itens devem ser do tipo Event", function() {
+    var list = new EventList();
+
+    equal(list.model, Event, "Model deve ser Event");
 });
 
-test("Carregar um evento existente", function() {
-    ok(false, "Not Implemented");
+test("Persistir os eventos da lista no localStorage", function() {
+    var list = new EventList();
+
+    evento = list.create({
+        title: "Um titulo",
+        link: "http://www.example.com",
+        publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+        author: "ICMC",
+        description: "uma descricao",
+        content: "um conteudo em html"
+    });
+
+    equal(JSON.parse(window.localStorage.getItem("usp-events-" + evento.id)).title, "Um titulo", "Evento armazenado deve ser o que foi criado.");
 });
 
-test("Alterar os atributos de um evento", function() {
-    ok(false, "Not Implemented");
-});
+test("Eventos offline devem ser carregados a partir do localStorage", function() {
+    var list = new EventList();
 
-test("Apagar um evento", function() {
-    ok(false, "Not Implemented");
-});
+    evento = list.create({
+        title: "Um titulo",
+        link: "http://www.example.com",
+        publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+        author: "ICMC",
+        description: "uma descricao",
+        content: "um conteudo em html"
+    });
 
+    var new_list = new EventList();
+    new_list.fetch();
+
+    equal(JSON.parse(window.localStorage.getItem("usp-events-" + evento.id)).title, "Um titulo", "Evento armazenado deve ser o que foi criado.");
+    equal(new_list.get(evento.id).get("title"), "Um titulo", "Em uma nova lista, evento armazenado deve ser o que foi criado.");
+});
