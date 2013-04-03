@@ -1,5 +1,5 @@
 # Eclipse gitignore
-
+*.DS_Store
 *.pydevproject
 .project
 .metadata
