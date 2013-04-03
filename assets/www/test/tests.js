@@ -69,7 +69,7 @@ test("Criar um novo objeto evento a partir dos dados do feed", function() {
 });
 
 test("Data de publicação deve estar disponível como um objeto", function() {
-    equal(evento.publishedDate().getDay(), 1, "Data de publicação como um objeto");
+    equal(evento.publishedDate().getDate(), 1, "Data de publicação como um objeto");
 });
 
 test("Validar um evento com atributos válidos", function() {
@@ -130,4 +130,33 @@ test("Eventos offline devem ser carregados a partir do localStorage", function()
 
     equal(JSON.parse(window.localStorage.getItem("usp-events-" + evento.id)).title, "Um titulo", "Evento armazenado deve ser o que foi criado.");
     equal(new_list.get(evento.id).get("title"), "Um titulo", "Em uma nova lista, evento armazenado deve ser o que foi criado.");
+});
+
+test("Eventos devem ser armazenados em ordem cronológica de publicação", function() {
+    var list = new EventList();
+
+    obj = {
+        title: "Um titulo",
+        link: "http://www.example.com",
+        publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+        author: "ICMC",
+        description: "uma descricao",
+        content: "um conteudo em html"
+    };
+
+    new_obj = _.clone(obj)
+    new_obj.publishedDate = "Mon, 15 Apr 2013 08:45:25 -0700",
+    list.create(new_obj);
+
+    new_obj = _.clone(obj)
+    new_obj.publishedDate = "Mon, 05 Apr 2013 08:45:25 -0700",
+    list.create(new_obj);
+
+    new_obj = _.clone(obj)
+    new_obj.publishedDate = "Mon, 11 Apr 2013 08:45:25 -0700",
+    list.create(new_obj);
+
+    equal(list.first().publishedDate().getDate(), 5, "Primeiro item deve ser do dia 5");
+    equal(list.last().publishedDate().getDate(), 15, "Último item deve ser do dia 15");
+    equal(list.length, 3, "Lista deve ter 3 itens.");
 });

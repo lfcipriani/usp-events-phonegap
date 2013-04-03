@@ -28,6 +28,10 @@ var Event = Backbone.Model.extend({
 
 var EventList = Backbone.Collection.extend({
     model: Event,
-    localStorage: new Backbone.LocalStorage("usp-events")
+    localStorage: new Backbone.LocalStorage("usp-events"),
+
+    comparator: function(an_event) {
+        return (new Date(an_event.publishedDate())).getTime();
+    }
 });
 
