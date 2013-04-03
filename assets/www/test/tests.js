@@ -47,7 +47,7 @@ asyncTest( "Serviço de feed do Google está com problema", function() {
 
 module("Event",{
     setup: function() {
-        evento = new FeedEvent({
+        evento = new Event({
             title: "Um titulo",
             link: "http://www.example.com",
             publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
