@@ -25,8 +25,8 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 * Montar a interface com o jQuery Mobile
 * **DONE** - Selecionar e testar uma biblioteca para o parsing do feed de RSS
 * **DONE** - Implementar o fetching do feed RSS no Phonegap (RSS -> JSON)
-* Selecionar o mecanismo de storage mais adequado
-* Implementar o salvamento do feed e seus itens no storage
+* **DONE** - Selecionar o mecanismo de storage mais adequado
+* **DONE** - Implementar o salvamento do feed e seus itens no storage
 * Implementar customização de feed
 * Fazer uma prova de conceito de como mostrar a falta de conectividade para o usuário
 
