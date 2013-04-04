@@ -30,6 +30,7 @@ asyncTest( "Serviço de feed do Google está com problema", function() {
     expect(2);
     RSS.load("http://www.eventos.usp.br/?event-types=evento-errado&feed=rss",
         function(feed, entries) {
+            console.log("Isso não deveria ser executado.");
         },
         function(status, text) {
             equal(status, "500", "Serviço do Google retorna Internal Server Error");
