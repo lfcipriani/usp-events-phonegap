@@ -161,3 +161,12 @@ test("Eventos devem ser armazenados em ordem cronológica de publicação", func
     equal(list.last().publishedDate().getDate(), 15, "Último item deve ser do dia 15");
     equal(list.length, 3, "Lista deve ter 3 itens.");
 });
+
+//-----------------------------------------------------------------------------
+
+module("Configuracao");
+
+test("Array de Tipos de eventos do feed deve estar com todos os tipos selecionados como padrão.", function(){
+    var conf = new Settings();
+    strictEqual(conf.selectedEventTypes, ['cultura-e-artes','esportes','evento-cientifico','evento-cientifico-biologicas','evento-cientifico-exatas','evento-cientifico-humanas','institucional','outros'], "Array de tipos de eventos");
+});
