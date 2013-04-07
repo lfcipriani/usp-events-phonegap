@@ -67,3 +67,13 @@ var Settings = Backbone.Model.extend({
         return url;
     }
 });
+
+var Connectivity = Backbone.Model.extend({
+    defaults: function() {
+    },
+
+    isOnline: function() {
+        console.log(navigator);
+        return (navigator.connection.type != Connection.NONE);
+    }
+});

@@ -223,4 +223,14 @@ test("Preferências do usuário devem ser salvas por default", function(){
     });
 });
 
+//-----------------------------------------------------------------------------
+
+module("Conectividade");
+
+test("Modelo deve ter método para checar se a conexão está online", function(){
+    var connection = new Connectivity();
+    
+    ok(connection.isOnline(), "Método que retorna true se houver conexão");
+});
+
 
