@@ -164,9 +164,63 @@ test("Eventos devem ser armazenados em ordem cronológica de publicação", func
 
 //-----------------------------------------------------------------------------
 
-module("Configuracao");
+module("Configuracao", {
+    setup: function() {
+    }, teardown: function() {
+        window.localStorage.clear();
+    }
+});
 
 test("Array de Tipos de eventos do feed deve estar com todos os tipos selecionados como padrão.", function(){
     var conf = new Settings();
-    strictEqual(conf.selectedEventTypes, ['cultura-e-artes','esportes','evento-cientifico','evento-cientifico-biologicas','evento-cientifico-exatas','evento-cientifico-humanas','institucional','outros'], "Array de tipos de eventos");
+    equal(conf.get("selectedEventTypes")[0], 'cultura-e-artes');
+    equal(conf.get("selectedEventTypes")[1], 'esportes');
+    equal(conf.get("selectedEventTypes")[2], 'evento-cientifico');
+    equal(conf.get("selectedEventTypes")[3], 'evento-cientifico-biologicas');
+    equal(conf.get("selectedEventTypes")[4], 'evento-cientifico-exatas');
+    equal(conf.get("selectedEventTypes")[5], 'evento-cientifico-humanas');
+    equal(conf.get("selectedEventTypes")[6], 'institucional');
+    equal(conf.get("selectedEventTypes")[7], 'outros');
 });
+
+test("Array de Departamentos deve estar com nenhum tipo selecionado como padrão.", function(){
+    var conf = new Settings();
+    equal(conf.get("selectedDepartments").length, 0, "Não deve haver nenhum departamento selecionado como default");
+});
+
+test("URL do feed gerado deve ser no padrão correto", function(){
+    var conf = new Settings();
+    equal(conf.feedURL(), "http://www.eventos.usp.br/?event-types=cultura-e-artes,esportes,evento-cientifico,evento-cientifico-biologicas,evento-cientifico-exatas,evento-cientifico-humanas,institucional,outros&feed=rss", "URL default");
+
+    conf.set("selectedDepartments", ["iqsc-instituto-de-quimica-de-sao-carlos"]);
+    conf.set("selectedEventTypes", ["cultura-e-artes"]);
+    equal(conf.feedURL(), "http://www.eventos.usp.br/?campi-unidades=iqsc-instituto-de-quimica-de-sao-carlos&event-types=cultura-e-artes&feed=rss", "URL com um departamento e um tipo de evento.");
+    
+    conf.set("selectedDepartments", ["iqsc-instituto-de-quimica-de-sao-carlos", "fmrp-hemocentro"]);
+    conf.set("selectedEventTypes", ["cultura-e-artes"]);
+    equal(conf.feedURL(), "http://www.eventos.usp.br/?campi-unidades=iqsc-instituto-de-quimica-de-sao-carlos,fmrp-hemocentro&event-types=cultura-e-artes&feed=rss", "URL com dois departamentos e um tipo de evento.");
+});
+
+test("Preferências do usuário devem ser salvas no Local Storage", function(){
+    var conf = new Settings();
+
+    conf.set("selectedDepartments", ["iqsc-instituto-de-quimica-de-sao-carlos"]);
+    conf.set("selectedEventTypes", ["cultura-e-artes"]);
+    conf.save();
+
+    var new_conf = new Settings();
+    new_conf.fetch();
+    equal(conf.feedURL(), "http://www.eventos.usp.br/?campi-unidades=iqsc-instituto-de-quimica-de-sao-carlos&event-types=cultura-e-artes&feed=rss", "Checando se a URL está com os parametros salvos anteriormente.");
+});
+
+test("Preferências do usuário devem ser salvas por default", function(){
+    expect(1);
+    var conf = new Settings();
+    conf.fetch({
+        success: function(model, response, options){
+            ok(!model.isNew(), "Se o model não for New, é porque ele já foi salvo.");
+        }
+    });
+});
+
+
