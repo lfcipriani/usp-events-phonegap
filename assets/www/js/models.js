@@ -73,7 +73,6 @@ var Connectivity = Backbone.Model.extend({
     },
 
     isOnline: function() {
-        console.log(navigator);
         return (navigator.connection.type != Connection.NONE);
     }
 });
