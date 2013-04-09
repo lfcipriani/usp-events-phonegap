@@ -1,5 +1,6 @@
 var Event = Backbone.Model.extend({
 
+    idAttribute: "link",
     publishedDate: function() {
         return new Date(this.get('publishedDate'));
     },
@@ -31,7 +32,12 @@ var EventList = Backbone.Collection.extend({
     localStorage: new Backbone.LocalStorage("usp-events"),
 
     comparator: function(an_event) {
-        return (new Date(an_event.publishedDate())).getTime();
+        return -(new Date(an_event.publishedDate())).getTime();
+    },
+
+    hardReset: function() {
+        this.reset();
+        this.localStorage._clear();
     }
 });
 

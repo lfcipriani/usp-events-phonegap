@@ -63,6 +63,7 @@ module("Event",{
 test("Criar um novo objeto evento a partir dos dados do feed", function() {
     equal(evento.get('title'), "Um titulo", "Titulo deve estar correto");
     equal(evento.get('link'), "http://www.example.com", "Link deve estar correto");
+    equal(evento.id, "http://www.example.com", "ID deve estar correto");
     equal(evento.get('publishedDate'), "Mon, 01 Apr 2013 08:45:25 -0700", "Publicação deve estar correta");
     equal(evento.get('author'), "ICMC", "Autor deve estar correto");
     equal(evento.get('description'), "uma descricao", "Descricao deve estar correto");
@@ -114,6 +115,32 @@ test("Persistir os eventos da lista no localStorage", function() {
     equal(JSON.parse(window.localStorage.getItem("usp-events-" + evento.id)).title, "Um titulo", "Evento armazenado deve ser o que foi criado.");
 });
 
+test("Adicionar mesmo evento na lista faz com que ele não seja salvo novamente no localStorage", function() {
+    var list = new EventList();
+
+    evento = list.create({
+        title: "Um titulo",
+        link: "http://www.example.com",
+        publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+        author: "ICMC",
+        description: "uma descricao",
+        content: "um conteudo em html"
+    });
+
+    evento = list.create({
+        title: "Um titulo",
+        link: "http://www.example.com",
+        publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+        author: "ICMC",
+        description: "uma descricao",
+        content: "um conteudo em html"
+    });
+
+    equal(JSON.parse(window.localStorage.getItem("usp-events-" + evento.id)).title, "Um titulo", "Evento armazenado deve ser o que foi criado.");
+    equal(list.length, 1, "Lista deve ter tamanho 1");
+});
+
+
 test("Eventos offline devem ser carregados a partir do localStorage", function() {
     var list = new EventList();
 
@@ -133,7 +160,7 @@ test("Eventos offline devem ser carregados a partir do localStorage", function()
     equal(new_list.get(evento.id).get("title"), "Um titulo", "Em uma nova lista, evento armazenado deve ser o que foi criado.");
 });
 
-test("Eventos devem ser armazenados em ordem cronológica de publicação", function() {
+test("Eventos devem ser armazenados em ordem de recência de publicação", function() {
     var list = new EventList();
 
     obj = {
@@ -146,21 +173,59 @@ test("Eventos devem ser armazenados em ordem cronológica de publicação", func
     };
 
     new_obj = _.clone(obj)
-    new_obj.publishedDate = "Mon, 15 Apr 2013 08:45:25 -0700",
+    new_obj.publishedDate = "Mon, 11 Apr 2013 08:45:25 -0700";
+    new_obj.link = "http://www.example.com/1";
     list.create(new_obj);
 
     new_obj = _.clone(obj)
-    new_obj.publishedDate = "Mon, 05 Apr 2013 08:45:25 -0700",
+    new_obj.publishedDate = "Mon, 05 Apr 2013 08:45:25 -0700";
+    new_obj.link = "http://www.example.com/2";
     list.create(new_obj);
 
     new_obj = _.clone(obj)
-    new_obj.publishedDate = "Mon, 11 Apr 2013 08:45:25 -0700",
+    new_obj.publishedDate = "Mon, 15 Apr 2013 08:45:25 -0700";
+    new_obj.link = "http://www.example.com/3";
     list.create(new_obj);
 
-    equal(list.first().publishedDate().getDate(), 5, "Primeiro item deve ser do dia 5");
-    equal(list.last().publishedDate().getDate(), 15, "Último item deve ser do dia 15");
+    equal(list.first().publishedDate().getDate(), 15, "Primeiro item deve ser do dia 5");
+    equal(list.last().publishedDate().getDate(), 5, "Último item deve ser do dia 15");
     equal(list.length, 3, "Lista deve ter 3 itens.");
 });
+
+test("Lista de eventos deve poder ser apagada.", function() {
+    var list = new EventList();
+
+    obj = {
+        title: "Um titulo",
+        link: "http://www.example.com",
+        publishedDate: "Mon, 01 Apr 2013 08:45:25 -0700",
+        author: "ICMC",
+        description: "uma descricao",
+        content: "um conteudo em html"
+    };
+
+    new_obj = _.clone(obj);
+    new_obj.publishedDate = "Mon, 11 Apr 2013 08:45:25 -0700";
+    new_obj.link = "http://www.example.com/1";
+    list.create(new_obj);
+
+    new_obj = _.clone(obj);
+    new_obj.publishedDate = "Mon, 05 Apr 2013 08:45:25 -0700";
+    new_obj.link = "http://www.example.com/2";
+    list.create(new_obj);
+
+    new_obj = _.clone(obj);
+    new_obj.publishedDate = "Mon, 15 Apr 2013 08:45:25 -0700";
+    new_obj.link = "http://www.example.com/3";
+    new_obj = list.create(new_obj);
+
+    equal(list.length, 3, "Lista deve ter 3 itens.");
+    equal(JSON.parse(window.localStorage.getItem("usp-events-" + new_obj.id)).title, "Um titulo", "Evento armazenado deve ser o que foi criado.");
+    list.hardReset();
+    equal(list.length, 0, "Lista deve ter 0 itens.");
+    ok(_.isNull(window.localStorage.getItem("usp-events-" + new_obj.id)), "Evento armazenado não deve mais existir no local storage.");
+});
+
 
 //-----------------------------------------------------------------------------
 
