@@ -25,16 +25,10 @@
             </div>
 
             <div data-role="content">
-                <ul data-role="listview" data-filter="true" data-filter-placeholder="Buscar eventos...">
-                    <li class="feed-entry"><a href="#">
-                        <h5>Stephen Weber, titulo realemente longo</h5>
-                        <p class="entry-description">Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                        <p class="entry-publishedDate"><em>12/31/1969 9:00:01 PM</em></p>
-                    </a></li>
+                <ul data-role="listview" id="feed-list" data-filter="true" data-filter-placeholder="Buscar eventos...">
                 </ul>
             </div>
         </div>
-
 
 
 
@@ -52,10 +46,34 @@
             </div>
 
             <div data-role="content">
-                <ul>
-                    <li>noticia 1</li>
-                    <li>Noticia 2</li>
-                </ul>
+                <form>
+                    <div data-role="collapsible-set" data-inset="false">
+                        <div data-role="collapsible">
+                            <h2>Capital</h2>
+                            <ul data-role="listview">
+                                <li data-role="fieldcontain" data-role="controlgroup">
+                                    <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+                                    <label for="checkbox-v-2a">One</label>
+                                    <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                                    <label for="checkbox-v-2b">Two</label>
+                                    <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+                                    <label for="checkbox-v-2c">Three</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div data-role="collapsible">
+                            <h2>São Carlos</h2>
+                                <fieldset data-role="controlgroup" data-inset="false">
+                                    <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+                                    <label for="checkbox-v-2a">One</label>
+                                    <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                                    <label for="checkbox-v-2b">Two</label>
+                                    <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+                                    <label for="checkbox-v-2c">Three</label>
+                                </fieldset>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -68,6 +86,15 @@
         <script type="text/javascript" src="js/lib/backbone.js"></script>
         <script type="text/javascript" src="js/lib/backbone.localStorage.js"></script>
         <script type="text/javascript" src="js/models.js"></script>
+        <script type="text/javascript" src="js/views.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/template" id="entry-template">
+            <li class="feed-entry" id="entry-<%- id %>"><a href="entry.html?id=<%- id %>">
+                <h5 class="entry-description"><%- title %></h5>
+                <p class="entry-description"><%- description %></p>
+                <p class="entry-publishedDate"><em><%- publishedDate %></em></p>
+            </a></li>
+        </script>
     </body>
 </html>
