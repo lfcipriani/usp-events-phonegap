@@ -11,7 +11,7 @@
     </head>
     <body>
 
-        <div data-role="page" id="mainscreen">
+        <div data-role="page" id="homepage">
             <div data-role="header" data-position="fixed">
                 <h1><img src="img/usp_logotipo_transparente.png" height="20" width="45"/> Eventos</h1>
                 <a href="#popupmenu" data-rel="popup" data-role="button" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-inline="true">Config</a>
@@ -39,7 +39,7 @@
                 <a href="#popupmenu2" data-rel="popup" data-role="button" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-inline="true">Gear</a>
                 <div data-role="popup" id="popupmenu2">
                     <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                        <li><a href="#mainscreen" data-transition="flip">Home</a></li>
+                        <li><a href="#homepage" data-transition="flip">Home</a></li>
                         <li><a href="#">Apagar base de dados local</a></li>
                         <li><a href="test.html" data-ajax="false">Rodar testes unitários</a></li>
                     </ul>
@@ -90,8 +90,8 @@
         <script type="text/javascript" src="js/views.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
-        <script type="text/template" id="entry-template">
-            <li class="feed-entry" id="entry-<%- id %>"><a href="entry.html?id=<%- id %>">
+        <script type="text/template" id="event-template">
+            <li class="feed-entry" id="usp-eventos-<%- id %>"><a href="#">
                 <h5 class="entry-description"><%- title %></h5>
                 <p class="entry-description"><%- description %></p>
                 <p class="entry-publishedDate"><em><%- publishedDate %></em></p>
