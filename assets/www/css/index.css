@@ -9,15 +9,6 @@ body {
     width:100%;
 }
 
-/* Portrait layout (default) */
-.app {
-                                  /* offset horizontal: half of text area width */
+.feed-entry h5, .feed-entry p {
+    white-space: normal;
 }
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-                                      /* offset horizontal: half of image width and text area width */
-    }
-}
-
