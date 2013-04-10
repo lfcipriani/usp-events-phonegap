@@ -16,12 +16,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         console.log('deviceready');
-
-        Preferencias = new Settings();
-        EventosUSP = new EventList();
-
-        HomePage = new HomeView();
     }
 };
-
 app.initialize();
+

@@ -160,7 +160,7 @@ test("Eventos offline devem ser carregados a partir do localStorage", function()
     equal(new_list.get(evento.id).get("title"), "Um titulo", "Em uma nova lista, evento armazenado deve ser o que foi criado.");
 });
 
-test("Eventos devem ser armazenados em ordem de recência de publicação", function() {
+test("Eventos devem ser armazenados em ordem cronológica de publicação", function() {
     var list = new EventList();
 
     obj = {
@@ -187,8 +187,8 @@ test("Eventos devem ser armazenados em ordem de recência de publicação", func
     new_obj.link = "http://www.example.com/3";
     list.create(new_obj);
 
-    equal(list.first().publishedDate().getDate(), 15, "Primeiro item deve ser do dia 5");
-    equal(list.last().publishedDate().getDate(), 5, "Último item deve ser do dia 15");
+    equal(list.first().publishedDate().getDate(), 5, "Primeiro item deve ser do dia 5");
+    equal(list.last().publishedDate().getDate(), 15, "Último item deve ser do dia 15");
     equal(list.length, 3, "Lista deve ter 3 itens.");
 });
 

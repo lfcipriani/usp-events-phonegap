@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
         <link rel="stylesheet" type="text/css" href="css/usp.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.3.0.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -86,16 +86,18 @@
         <script type="text/javascript" src="js/lib/underscore.js"></script>
         <script type="text/javascript" src="js/lib/backbone.js"></script>
         <script type="text/javascript" src="js/lib/backbone.localStorage.js"></script>
+        <script type="text/javascript" src="js/usp_data.js"></script>
+        <script type="text/javascript" src="js/rss.js"></script>
         <script type="text/javascript" src="js/models.js"></script>
         <script type="text/javascript" src="js/views.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
         <script type="text/template" id="event-template">
-            <li class="feed-entry" id="usp-eventos-<%- id %>"><a href="#">
+            <a href="#" id="usp-eventos-<%- link %>">
                 <h5 class="entry-description"><%- title %></h5>
                 <p class="entry-description"><%- description %></p>
                 <p class="entry-publishedDate"><em><%- publishedDate %></em></p>
-            </a></li>
+            </a>
         </script>
     </body>
 </html>

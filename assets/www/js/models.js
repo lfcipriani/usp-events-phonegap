@@ -32,7 +32,32 @@ var EventList = Backbone.Collection.extend({
     localStorage: new Backbone.LocalStorage("usp-events"),
 
     comparator: function(an_event) {
-        return -(new Date(an_event.publishedDate())).getTime();
+        return (new Date(an_event.publishedDate())).getTime();
+    },
+
+    remoteFetch: function(feedURL) {
+        var mostRecentEvent = this.length ? this.first().publishedDate().getTime() : 0;
+        var that = this;
+        RSS.load(feedURL,
+            function(feed, entries) {
+                newEntries = _.reject(entries, function(e) { return new Date(e.publishedDate).getTime() <= mostRecentEvent});
+                newEntries = _.sortBy(newEntries, function(e) { return new Date(e.publishedDate).getTime(); });
+                _.each(newEntries, function(e) {
+                    that.create({
+                        title: e.title,
+                        link: e.link,
+                        publishedDate: e.publishedDate,
+                        author: e.author,
+                        description: e.contentSnippet,
+                        content: e.content
+                    });
+                });
+            },
+            function(status, text) {
+                console.log("RSS load fail: "+ text)
+            }
+        );
+    
     },
 
     hardReset: function() {
@@ -48,6 +73,7 @@ var Settings = Backbone.Model.extend({
     defaults: function() {
         this.set("selectedEventTypes", _.keys(USP.eventTypes));
         this.set("selectedDepartments", []);
+        this.id = "user";
         this.save();
     },
 
