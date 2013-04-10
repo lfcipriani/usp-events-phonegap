@@ -21,7 +21,10 @@ $(function() {
         },
 
         readEvent: function() {
-            console.log("Quero ler");
+            console.log(this.model);
+            var view = new NewsView({model: this.model});
+            view.render().el;
+            $.mobile.changePage("#newspage", { transition: "slide" });
         }
     });
 
@@ -30,8 +33,6 @@ $(function() {
 
         initialize: function() {
             this.listenTo(EventosUSP, 'add', this.addOne);
-            //this.listenTo(EventosUSP, 'reset', this.addAll);
-            //this.listenTo(EventosUSP, 'all', this.render);
 
             this.main = $('#main');
 
@@ -47,6 +48,22 @@ $(function() {
             this.$("#feed-list").prepend(view.render().el).listview("refresh");
         }
 
+    });
+
+    window.NewsView = Backbone.View.extend({
+        el: $("#newspage"),
+
+        template: _.template($('#corpo-template').html()),
+
+        initialize: function() {
+            this.corpo = $("#corpo");
+        },
+
+        render: function() {
+            this.corpo.html(this.template(this.model.toJSON()));
+            $("#newscontent").html(this.model.get("content"));
+            return this;
+        }
     });
 
     Preferencias = new Settings();
