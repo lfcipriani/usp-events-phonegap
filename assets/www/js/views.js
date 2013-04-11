@@ -30,6 +30,10 @@ $(function() {
     window.HomeView = Backbone.View.extend({
         el: $("#homepage"),
 
+        events: {
+            "click #refresh-btn": "refresh"
+        },
+
         initialize: function() {
             this.listenTo(EventosUSP, 'add', this.addOne);
 
@@ -40,6 +44,11 @@ $(function() {
         },
 
         render: function() {
+        },
+
+        refresh: function() {
+            console.log("Atualizando o feed");
+            EventosUSP.remoteFetch(Preferencias.feedURL());
         },
 
         addOne: function(evento) {

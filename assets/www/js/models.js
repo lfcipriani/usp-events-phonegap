@@ -38,6 +38,7 @@ var EventList = Backbone.Collection.extend({
     remoteFetch: function(feedURL) {
         var mostRecentEvent = this.length ? this.first().publishedDate().getTime() : 0;
         var that = this;
+        $.mobile.loading("show");
         RSS.load(feedURL,
             function(feed, entries) {
                 newEntries = _.reject(entries, function(e) { return new Date(e.publishedDate).getTime() <= mostRecentEvent});
@@ -52,9 +53,11 @@ var EventList = Backbone.Collection.extend({
                         content: e.content
                     });
                 });
+                $.mobile.loading("hide");
             },
             function(status, text) {
                 console.log("RSS load fail: "+ text)
+                $.mobile.loading("hide");
             }
         );
     
