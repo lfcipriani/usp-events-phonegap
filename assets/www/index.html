@@ -38,10 +38,10 @@
                 <a href="#homepage" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true">Voltar</a>
                 <h1>Configuração</h1>
             </div>
-            <div data-role="content"><!-- refresh | personalizar | apagar base | rodar testes unitarios -->
+            <div data-role="content">
                 <ul data-role="listview" id="settings-list" data-theme="a">
                     <li data-icon="edit"><a href="#" id="customize-btn" data-ajax="false">Personalizar feed...</a></li>
-                    <li data-icon="delete"><a href="#" id="cleardb-btn" data-ajax="false">Apagar base local...</a></li>
+                    <li data-icon="delete"><a href="#cleardbpage" data-ajax="false">Apagar base local...</a></li>
                     <li data-icon="bars"><a href="test.html" data-ajax="false">Rodar testes unitários...</a></li>
                 </ul>
             </div>
@@ -58,6 +58,18 @@
                 <p>Selecione os tipos de eventos e os departamentos dos campi abaixo dos quais deseja ler os eventos:</p>
                 <div data-role="collapsible-set" id="customizelist" data-inset="false" data-theme="a">
                 </div>
+            </div>
+        </div>
+
+
+        <div data-role="page" id="cleardbpage">
+            <div data-role="header" data-position="fixed">
+                <a href="#settingspage" data-ajax="false" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true">Voltar</a>
+                <h1>Apagar</h1>
+            </div>
+            <div data-role="content">
+                <p>Deseja apagar a base local? Após a remoção, o feed será recarregado totalmente do serviço de RSS.</p>
+                <a href="#" id="cleardb-action-btn" data-role="button" data-inline="true" data-icon="alert" data-theme="a">Apagar Base Local</a>
             </div>
         </div>
 

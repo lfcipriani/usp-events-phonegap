@@ -70,16 +70,11 @@ $(function() {
 
         events: {
             "click #customize-btn": "customize",
-            "click #cleardb-btn": "clearDB"
         },
 
         customize: function() {
             CustomizePage.render();
-        },
-
-        clearDB: function() {
         }
-
     });
 
     window.CustomizeView = Backbone.View.extend({
@@ -126,6 +121,7 @@ $(function() {
             Preferencias.set("selectedDepartments", $("input:checked.departamento").map(function(i, e){ return $(e).attr("name") }).get());
             Preferencias.save();
             EventosUSP.hardReset();
+            $("#feed-list > li").remove();
             EventosUSP.remoteFetch(Preferencias.feedURL());
             $.mobile.changePage("#settingspage");
         },
@@ -135,7 +131,23 @@ $(function() {
         }
 
     });
-    
+
+    window.ClearDBView = Backbone.View.extend({
+        el: $("#cleardbpage"),
+
+        events: {
+            "click #cleardb-action-btn": "clearDBAction"
+        },
+
+        clearDBAction: function() {
+            console.log("Resetando base local...");
+            EventosUSP.hardReset();
+            $("#feed-list > li").remove();
+            EventosUSP.remoteFetch(Preferencias.feedURL());
+        }
+    });
+
+   
     $.mobile.defaultPageTransition = 'none'; $.mobile.defaultDialogTransition = 'none';
 
     Preferencias = new Settings();
@@ -145,5 +157,6 @@ $(function() {
     HomePage = new HomeView();
     SettingsPage = new SettingsView(); 
     CustomizePage = new CustomizeView();
+    ClearDBPage = new ClearDBView();
 });
 
