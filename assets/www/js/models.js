@@ -53,10 +53,12 @@ var EventList = Backbone.Collection.extend({
                         content: e.content
                     });
                 });
+                $('#status-btn').buttonMarkup({ icon: "feed-go" });
                 $.mobile.loading("hide");
             },
             function(status, text) {
                 console.log("RSS load fail: "+ text)
+                $('#status-btn').buttonMarkup({ icon: "feed-error" });
                 $.mobile.loading("hide");
             }
         );
@@ -102,11 +104,3 @@ var Settings = Backbone.Model.extend({
     }
 });
 
-var Connectivity = Backbone.Model.extend({
-    defaults: function() {
-    },
-
-    isOnline: function() {
-        return (navigator.connection.type != Connection.NONE);
-    }
-});

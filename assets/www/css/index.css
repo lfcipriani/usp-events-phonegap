@@ -12,3 +12,11 @@ body {
 .feed-entry h5, .feed-entry p {
     white-space: normal;
 }
+
+.ui-icon-feed-go {
+	background-image: url("images/feed_go.png");
+}
+
+.ui-icon-feed-error {
+	background-image: url("images/feed_error.png");
+}

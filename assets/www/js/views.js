@@ -1,4 +1,5 @@
 $(function() {
+    console.log("DOM ready");
 
     window.EventView = Backbone.View.extend({
         tagName: "li",
@@ -37,8 +38,6 @@ $(function() {
         initialize: function() {
             this.listenTo(EventosUSP, 'add', this.addOne);
 
-            this.main = $('#main');
-
             EventosUSP.fetch();
             EventosUSP.remoteFetch(Preferencias.feedURL());
         },
@@ -54,6 +53,17 @@ $(function() {
         addOne: function(evento) {
             var view = new EventView({model: evento});
             this.$("#feed-list").prepend(view.render().el).listview("refresh");
+        },
+
+        onOnline: function(){
+            console.log("Estou Online!!!");
+            $('#status-btn').buttonMarkup({ icon: "feed-go" });
+            EventosUSP.remoteFetch(Preferencias.feedURL());
+        },
+
+        onOffline: function(){
+            console.log("Estou Offline... :-(");
+            $('#status-btn').buttonMarkup({ icon: "feed-error" });
         }
 
     });
@@ -156,7 +166,6 @@ $(function() {
         }
     });
 
-   
     $.mobile.defaultPageTransition = 'none'; $.mobile.defaultDialogTransition = 'none';
 
     Preferencias = new Settings();
