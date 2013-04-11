@@ -14,76 +14,50 @@
         <div data-role="page" id="homepage">
             <div data-role="header" data-position="fixed">
                 <h1><img src="img/usp_logotipo_transparente.png" height="20" width="45"/> Eventos</h1>
-                <a href="#popupmenu" data-rel="popup" data-role="button" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-inline="true">Config</a>
-                <div data-role="popup" id="popupmenu">
-                    <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                        <li><a href="#">Atualizar feed</a></li>
-                        <li><a href="#customize" data-transition="slide">Personalizar feed</a></li>
-                        <li><a href="#">Apagar base de dados local</a></li>
-                        <li><a href="test.html" data-ajax="false">Rodar testes unitários</a></li>
-                    </ul>
-                </div>
+                <a href="#settingspage" data-role="button" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-inline="true">Config</a>
             </div>
-
             <div data-role="content">
                 <ul data-role="listview" id="feed-list" data-filter="true" data-filter-placeholder="Buscar eventos..." data-theme="a">
                 </ul>
             </div>
         </div>
 
+
         <div data-role="page" id="newspage">
             <div data-role="header" data-position="fixed">
-                <a href="#homepage" data-role="button" data-icon="back" data-transition="slide" data-direction="reverse" data-iconpos="notext" data-inline="true">Voltar</a>
+                <a href="#homepage" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true">Voltar</a>
                 <h1><img src="img/usp_logotipo_transparente.png" height="20" width="45"/> Eventos</h1>
             </div>
-
             <div data-role="content" id="corpo">
             </div>
         </div>
 
 
-        <div data-role="page" id="customize">
+        <div data-role="page" id="settingspage">
             <div data-role="header" data-position="fixed">
-                <h1>Personalizar</h1>
-                <a href="#popupmenu2" data-rel="popup" data-role="button" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-inline="true">Gear</a>
-                <div data-role="popup" id="popupmenu2">
-                    <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                        <li><a href="#homepage" data-transition="flip">Home</a></li>
-                        <li><a href="#">Apagar base de dados local</a></li>
-                        <li><a href="test.html" data-ajax="false">Rodar testes unitários</a></li>
-                    </ul>
-                </div>
+                <a href="#homepage" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true">Voltar</a>
+                <h1>Configuração</h1>
             </div>
+            <div data-role="content"><!-- refresh | personalizar | apagar base | rodar testes unitarios -->
+                <ul data-role="listview" id="settings-list" data-theme="a">
+                    <li data-icon="edit"><a href="#" id="customize-btn" data-ajax="false">Personalizar feed...</a></li>
+                    <li data-icon="delete"><a href="#" id="cleardb-btn" data-ajax="false">Apagar base local...</a></li>
+                    <li data-icon="bars"><a href="test.html" data-ajax="false">Rodar testes unitários...</a></li>
+                </ul>
+            </div>
+        </div>
 
+
+        <div data-role="page" id="customizepage">
+            <div data-role="header" data-position="fixed">
+                <a href="#" id="customize-back-btn" data-ajax="false" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true">Voltar</a>
+                <h1>Personalizar</h1>
+                <a href="#" id="customize-save-btn" data-ajax="false" data-role="button" data-icon="save" data-inline="true">Salvar</a>
+            </div>
             <div data-role="content">
-                <form>
-                    <div data-role="collapsible-set" data-inset="false">
-                        <div data-role="collapsible">
-                            <h2>Capital</h2>
-                            <ul data-role="listview">
-                                <li data-role="fieldcontain" data-role="controlgroup">
-                                    <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
-                                    <label for="checkbox-v-2a">One</label>
-                                    <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
-                                    <label for="checkbox-v-2b">Two</label>
-                                    <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
-                                    <label for="checkbox-v-2c">Three</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div data-role="collapsible">
-                            <h2>São Carlos</h2>
-                                <fieldset data-role="controlgroup" data-inset="false">
-                                    <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
-                                    <label for="checkbox-v-2a">One</label>
-                                    <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
-                                    <label for="checkbox-v-2b">Two</label>
-                                    <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
-                                    <label for="checkbox-v-2c">Three</label>
-                                </fieldset>
-                        </div>
-                    </div>
-                </form>
+                <p>Selecione os tipos de eventos e os departamentos dos campi abaixo dos quais deseja ler os eventos:</p>
+                <div data-role="collapsible-set" id="customizelist" data-inset="false" data-theme="a">
+                </div>
             </div>
         </div>
 
@@ -114,6 +88,15 @@
             <p><strong><a href="<%- link %>">Mais detalhes...</a></strong></p>
             <p>Publicado em <em><%- publishedDate %></em></p>
             <p>Publicado por <em><%- author %></em></p>
+        </script>
+        <script type="text/template" id="customize-template">
+            <h2><%- section %></h2>
+            <fieldset class="groupchecks" data-role="controlgroup">
+                <% _.each(collection, function(value, key){ %>
+                    <input class="checkbtn <%= type %>" data-mini="true" type="checkbox" name="<%= key %>" id="<%= key %>">
+                    <label for="<%= key %>"><%- value %></label>
+                <% }); %>
+            </fieldset>
         </script>
     </body>
 </html>

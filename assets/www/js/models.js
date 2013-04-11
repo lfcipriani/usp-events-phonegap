@@ -74,7 +74,6 @@ var Settings = Backbone.Model.extend({
         this.set("selectedEventTypes", _.keys(USP.eventTypes));
         this.set("selectedDepartments", []);
         this.id = "user";
-        this.save();
     },
 
     validate: function(attrs, options) {

@@ -278,13 +278,3 @@ test("Preferências do usuário devem ser salvas no Local Storage", function(){
     equal(conf.feedURL(), "http://www.eventos.usp.br/?campi-unidades=iqsc-instituto-de-quimica-de-sao-carlos&event-types=cultura-e-artes&feed=rss", "Checando se a URL está com os parametros salvos anteriormente.");
 });
 
-test("Preferências do usuário devem ser salvas por default", function(){
-    expect(1);
-    var conf = new Settings();
-    conf.fetch({
-        success: function(model, response, options){
-            ok(!model.isNew(), "Se o model não for New, é porque ele já foi salvo.");
-        }
-    });
-});
-

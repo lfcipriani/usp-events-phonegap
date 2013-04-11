@@ -21,10 +21,9 @@ $(function() {
         },
 
         readEvent: function() {
-            console.log(this.model);
             var view = new NewsView({model: this.model});
             view.render().el;
-            $.mobile.changePage("#newspage", { transition: "slide" });
+            $.mobile.changePage("#newspage");
         }
     });
 
@@ -66,10 +65,85 @@ $(function() {
         }
     });
 
+    window.SettingsView = Backbone.View.extend({
+        el: $("#settingspage"),
+
+        events: {
+            "click #customize-btn": "customize",
+            "click #cleardb-btn": "clearDB"
+        },
+
+        customize: function() {
+            CustomizePage.render();
+        },
+
+        clearDB: function() {
+        }
+
+    });
+
+    window.CustomizeView = Backbone.View.extend({
+        el: $("#customizepage"),
+
+        template: _.template($('#customize-template').html()),
+
+        events: {
+            "click #customize-save-btn": "saveSettings",
+            "click #customize-back-btn": "backToSettings"
+        },
+
+        initialize: function() {
+            this.customize = $("#customizelist");
+            var that = this;
+            $("#customizepage").on( "pagecreate", function( event ) {
+                $('<div data-role="collapsible"></div>')
+                    .html(that.template({ type: "tipo", section: "Tipo de Evento", collection: USP.eventTypes }))
+                    .appendTo(that.customize);
+                _.each(USP.eventDepartments, function(value, key) {
+                    $('<div data-role="collapsible"></div>')
+                        .html(that.template({ type: "departamento", section: key, collection: value }))
+                        .appendTo(that.customize);
+                });
+            });
+
+            $("#customizepage").on( "pageshow", function( event ) {
+                _.each(Preferencias.get("selectedEventTypes"), function(t) {
+                    $("#"+t).attr( "checked", true ).checkboxradio("refresh");
+                });
+                _.each(Preferencias.get("selectedDepartments"), function(t) {
+                    $("#"+t).attr( "checked", true ).checkboxradio("refresh");
+                });
+            });
+        },
+
+        render: function() {
+            $.mobile.changePage("#customizepage");
+            return this;
+        },
+
+        saveSettings: function() {
+            Preferencias.set("selectedEventTypes", $("input:checked.tipo").map(function(i, e){ return $(e).attr("name") }).get());
+            Preferencias.set("selectedDepartments", $("input:checked.departamento").map(function(i, e){ return $(e).attr("name") }).get());
+            Preferencias.save();
+            EventosUSP.hardReset();
+            EventosUSP.remoteFetch(Preferencias.feedURL());
+            $.mobile.changePage("#settingspage");
+        },
+
+        backToSettings: function() {
+            $.mobile.changePage("#settingspage");
+        }
+
+    });
+    
+    $.mobile.defaultPageTransition = 'none'; $.mobile.defaultDialogTransition = 'none';
+
     Preferencias = new Settings();
+    Preferencias.fetch();
     EventosUSP = new EventList();
 
     HomePage = new HomeView();
-
+    SettingsPage = new SettingsView(); 
+    CustomizePage = new CustomizeView();
 });
 
