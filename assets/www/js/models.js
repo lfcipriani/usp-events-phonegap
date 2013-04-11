@@ -54,11 +54,13 @@ var EventList = Backbone.Collection.extend({
                     });
                 });
                 $('#status-btn').buttonMarkup({ icon: "feed-go" });
+                $('#statusHint').html('<p>Você está online :-)</p>');
                 $.mobile.loading("hide");
             },
             function(status, text) {
                 console.log("RSS load fail: "+ text)
                 $('#status-btn').buttonMarkup({ icon: "feed-error" });
+                $('#statusHint').html('<p>Você está offline :-(<br />Mas os eventos salvos locamente estão disponíveis.</p>').popup("open");
                 $.mobile.loading("hide");
             }
         );

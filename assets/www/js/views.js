@@ -58,12 +58,14 @@ $(function() {
         onOnline: function(){
             console.log("Estou Online!!!");
             $('#status-btn').buttonMarkup({ icon: "feed-go" });
+            $('#statusHint').html('<p>Você está online :-)</p>');
             EventosUSP.remoteFetch(Preferencias.feedURL());
         },
 
         onOffline: function(){
             console.log("Estou Offline... :-(");
             $('#status-btn').buttonMarkup({ icon: "feed-error" });
+            $('#statusHint').html('<p>Você está offline :-(<br />Mas os eventos salvos locamente estão disponíveis.</p>').popup("open");
         }
 
     });

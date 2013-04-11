@@ -13,7 +13,10 @@
 
         <div data-role="page" id="homepage">
             <div data-role="header" data-position="fixed">
-                <a href="#" id="status-btn" data-role="button" data-icon="feed-go" data-iconpos="notext" data-inline="true">Status</a>
+                <a href="#statusHint" id="status-btn" data-rel="popup" data-role="button" data-icon="feed-go" data-iconpos="notext" data-inline="true">Status</a>
+                <div data-role="popup" id="statusHint">
+                    <p>Você está online! :-)</p>
+                </div>
                 <h1><img src="img/usp_logotipo_transparente.png" height="20" width="45"/> Eventos</h1>
                 <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal">
                     <a href="#" id="refresh-btn" data-role="button" data-icon="refresh" data-iconpos="notext" data-inline="true">Recarregar Feed</a>
