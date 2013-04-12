@@ -66,7 +66,13 @@ $(function() {
             console.log("Estou Offline... :-(");
             $('#status-btn').buttonMarkup({ icon: "feed-error" });
             $('#statusHint').html('<p>Você está offline :-(<br />Mas os eventos salvos locamente estão disponíveis.</p>').popup("open");
-        }
+        },
+
+        onResume: function(){
+            console.log("De volta a vida! onResume");
+            EventosUSP.remoteFetch(Preferencias.feedURL());
+        },
+
 
     });
 

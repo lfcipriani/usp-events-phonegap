@@ -15,6 +15,7 @@ var app = {
         console.log('deviceready');
         document.addEventListener("online", HomePage.onOnline , false);
         document.addEventListener("offline", HomePage.onOffline , false);
+        document.addEventListener("resume", HomePage.onResume, false);
     }
 };
 app.initialize();
