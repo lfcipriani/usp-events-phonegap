@@ -46,7 +46,7 @@ $(function() {
         },
 
         refresh: function() {
-            console.log("Atualizando o feed");
+            console.log("Refreshing...");
             EventosUSP.remoteFetch(Preferencias.feedURL());
         },
 
@@ -138,6 +138,7 @@ $(function() {
         },
 
         saveSettings: function() {
+            console.log("Salvando nova preferência...");
             Preferencias.set("selectedEventTypes", $("input:checked.tipo").map(function(i, e){ return $(e).attr("name") }).get());
             Preferencias.set("selectedDepartments", $("input:checked.departamento").map(function(i, e){ return $(e).attr("name") }).get());
             Preferencias.save();
@@ -165,6 +166,7 @@ $(function() {
             EventosUSP.hardReset();
             $("#feed-list > li").remove();
             EventosUSP.remoteFetch(Preferencias.feedURL());
+            $.mobile.changePage("#settingspage");
         }
     });
 

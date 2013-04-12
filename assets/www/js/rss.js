@@ -2,6 +2,7 @@ var RSS = {
     load: function(feedUrl, successCallback, errorCallback, options) {
         options = options || {}
 
+        console.log("Acessando Feed: "+feedUrl);
         $.ajax({
             dataType: "json",
             url: options.url || 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=' + encodeURIComponent(feedUrl) + '&num=20&callback=?',
