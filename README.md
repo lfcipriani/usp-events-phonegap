@@ -18,3 +18,5 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 
 * https://pinboard.in/search/u:lfcipriani?query=mac5743
 
+----
+_Copyright (c) 2013 Luis Cipriani and Milson Monteiro (under MIT license)_
