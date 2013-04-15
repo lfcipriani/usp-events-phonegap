@@ -14,6 +14,14 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 * Backbone.js
 * qUnit: biblioteca de testes
 
+# Testes
+
+* Abra test.html no seu browser (recomendado a extensão Chrome Ripple https://chrome.google.com/webstore/detail/ripple-emulator-beta/geelfhphabnejjhdalkjhgipohgpdnoc?hl=en)
+
+ou...
+
+* Instale no seu dispositivo, faça o download aqui: https://build.phonegap.com/apps/369202/builds
+
 # Referências
 
 * https://pinboard.in/search/u:lfcipriani?query=mac5743
