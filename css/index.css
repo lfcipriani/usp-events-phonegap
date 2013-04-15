@@ -1,0 +1,22 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    width:100%;
+}
+
+.feed-entry h5, .feed-entry p {
+    white-space: normal;
+}
+
+.ui-icon-feed-go {
+	background-image: url("images/feed_go.png");
+}
+
+.ui-icon-feed-error {
+	background-image: url("images/feed_error.png");
+}
