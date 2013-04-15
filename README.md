@@ -1,6 +1,6 @@
 # Eventos USP
 
-RSS Readers para os Eventos da USP
+Aplicação para o Phonegap que implementa um RSS Reader para os Eventos da USP, com possibilidade de customizar o feed.
 
 Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 
@@ -8,25 +8,13 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 
 * Android 4.2.2 (API 17)
 * PhoneGap 2.5.0
-* jQuery
-* jQuery Mobile: framework para implementação da UI
-* Backbone.js: framework para arquitetura e padrões de javascript
+* jQuery 1.9.1
+* jQuery Mobile 1.3.0: framework para implementação da UI
+* Underscore.js
+* Backbone.js
 * qUnit: biblioteca de testes
 
 # Referências
 
 * https://pinboard.in/search/u:lfcipriani?query=mac5743
-* https://pinboard.in/search/u:lfcipriani?query=git
-
-# Tarefas
-
-* Montar JSON com mapeamento de nome de categoria/filtro e o seu valor para a geração da URL do feed
-* **DONE** - Montar o fluxo de interação com a aplicação
-* Montar a interface com o jQuery Mobile
-* **DONE** - Selecionar e testar uma biblioteca para o parsing do feed de RSS
-* **DONE** - Implementar o fetching do feed RSS no Phonegap (RSS -> JSON)
-* **DONE** - Selecionar o mecanismo de storage mais adequado
-* **DONE** - Implementar o salvamento do feed e seus itens no storage
-* Implementar customização de feed
-* Fazer uma prova de conceito de como mostrar a falta de conectividade para o usuário
 
