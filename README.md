@@ -14,9 +14,9 @@ Link para a configuração do RSS: http://www.eventos.usp.br/?page_id=111
 * Backbone.js
 * qUnit: biblioteca de testes
 
-# Testes
+# Executar
 
-* Abra test.html no seu browser (recomendado a extensão Chrome Ripple https://chrome.google.com/webstore/detail/ripple-emulator-beta/geelfhphabnejjhdalkjhgipohgpdnoc?hl=en)
+* Acesse a aplicação no seu browser: http://lfcipriani.github.io/usp-events-phonegap/
 
 ou...
 
